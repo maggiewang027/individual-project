@@ -2,6 +2,7 @@ module Main where
 
 import User
 import Message
+import Control.Monand
 import Control.Concurrent
 import System.Random
 
