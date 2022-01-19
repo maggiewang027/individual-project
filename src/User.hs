@@ -1,6 +1,10 @@
-module User
-    ( someFunc
+module User (
+    someFunc
     ) where
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+import Control.Concurrent
+
+data User = User {
+    name :: String,
+    id :: Int
+    } deriving (Show, Eq)
