@@ -3,7 +3,7 @@ module User (
     generateUsers
     ) where
 
--- | Define a data type User, each user has a username of type String
+-- | Define a type User, each user has a username of type String and a userid of type Int
 data User = User {
     username :: String,
     userid :: Int
@@ -21,5 +21,5 @@ let
     user8 = User { username = "@miyeon09", userid = 8 }
     user9 = User { username = "@rhea888", userid = 9 }
     user10 = User { username = "@robertmay20", userid = 10 }
-generateUsers :: [User]
-generateUsers = [user1, user2, user3, user4, user5, user6, user7, user8, user9, user10]
+userList :: [User]
+userList = [user1, user2, user3, user4, user5, user6, user7, user8, user9, user10]
