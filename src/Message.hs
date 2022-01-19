@@ -37,5 +37,5 @@ sendMessage box sendId = do
 -- | Count the total number of messages each user received
 countMessage :: [Message] -> User -> IO ()
 countMessage ms user = do
-    let totalMessage = length $ filter (\someone -> someone receiveId == user userId )
+    let totalMessage = length $ filter (\someone -> someone receiverId == user userId )
     putStrLn $ (userName user) ++ (show userId) ++ " received " ++ (show totalMessage) ++ " messages in total."
