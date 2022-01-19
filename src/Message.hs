@@ -1,5 +1,8 @@
 module Message (
-    Message (..)
+    Message (..),
+    receiver,
+    sendMessage,
+    countMessage
     ) where
 
 import User
