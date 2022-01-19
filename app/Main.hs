@@ -1,6 +1,16 @@
 module Main where
 
-import Lib
+import User
+import Message
+import Control.Concurrent
+import System.Random
 
 main :: IO ()
-main = someFunc
+main = do
+    box <- newMVar []
+    putStrLn "Start sending messages..."
+    mapM_ (\ids -> forkIO (replicateM_ 10 (sendMessage box ids))) [1..10]
+    messages <- readMVar box
+    putStrLn "Start printing total number of messages of each user..."
+    mapM_ (countMessage ms) userList
+    putStrLn "Finished."
