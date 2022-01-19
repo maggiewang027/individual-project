@@ -11,7 +11,7 @@ import System.Random
 
 -- | Define a type Message, each has a message of type String, a senderid of type Int
 -- | and a receiverid of type Int
-data Message = {
+data Message = Message {
     message :: String,
     senderId :: Int,
     receiverId :: Int
