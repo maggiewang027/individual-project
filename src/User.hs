@@ -1,6 +1,6 @@
 module User (
     User (..),
-    generateUsers
+    userList
     ) where
 
 -- | Define a type User, each user has a username of type String and a userid of type Int
