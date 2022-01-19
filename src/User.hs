@@ -1,8 +1,7 @@
 module User (
-    User (..)
+    User (..),
+    generateUsers
     ) where
-
-import Control.Concurrent
 
 -- | Define a data type User, each user has a username of type String
 data User = User {
