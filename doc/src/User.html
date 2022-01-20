@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">User</span><span> </span><span class="hs-special">(</span><span>
+</span><span id="line-2"></span><span>    </span><span class="annot"><a href="User.html#User"><span class="hs-identifier">User</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">,</span><span>
+</span><span id="line-3"></span><span>    </span><span class="annot"><a href="User.html#userList"><span class="hs-identifier">userList</span></a></span><span>
+</span><span id="line-4"></span><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><span id="line-5"></span><span>
+</span><span id="line-6"></span><span class="hs-comment">-- | Define a type User, each user has a username of type String and a userid of type Int</span><span>
+</span><span id="line-7"></span><span class="hs-keyword">data</span><span> </span><span id="User"><span class="annot"><a href="User.html#User"><span class="hs-identifier hs-var">User</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="User"><span class="annot"><a href="User.html#User"><span class="hs-identifier hs-var">User</span></a></span></span><span> </span><span class="hs-special">{</span><span>
+</span><span id="line-8"></span><span>    </span><span id="userName"><span class="annot"><span class="annottext">User -&gt; String
+</span><a href="User.html#userName"><span class="hs-identifier hs-var hs-var">userName</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span class="hs-special">,</span><span>
+</span><span id="line-9"></span><span>    </span><span id="userId"><span class="annot"><span class="annottext">User -&gt; Int
+</span><a href="User.html#userId"><span class="hs-identifier hs-var hs-var">userId</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-10"></span><span>    </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679033157"><span id="local-6989586621679033159"><span id="local-6989586621679033161"><span class="annot"><span class="annottext">Int -&gt; User -&gt; ShowS
+[User] -&gt; ShowS
+User -&gt; String
+(Int -&gt; User -&gt; ShowS)
+-&gt; (User -&gt; String) -&gt; ([User] -&gt; ShowS) -&gt; Show User
+forall a.
+(Int -&gt; a -&gt; ShowS) -&gt; (a -&gt; String) -&gt; ([a] -&gt; ShowS) -&gt; Show a
+showList :: [User] -&gt; ShowS
+$cshowList :: [User] -&gt; ShowS
+show :: User -&gt; String
+$cshow :: User -&gt; String
+showsPrec :: Int -&gt; User -&gt; ShowS
+$cshowsPrec :: Int -&gt; User -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-11"></span><span>
+</span><span id="line-12"></span><span class="hs-comment">-- | Generate a list of 10 users</span><span>
+</span><span id="line-13"></span><span class="annot"><a href="User.html#userList"><span class="hs-identifier hs-type">userList</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="User.html#User"><span class="hs-identifier hs-type">User</span></a></span><span class="hs-special">]</span><span>
+</span><span id="line-14"></span><span id="userList"><span class="annot"><span class="annottext">userList :: [User]
+</span><a href="User.html#userList"><span class="hs-identifier hs-var hs-var">userList</span></a></span></span><span> </span><span class="hs-glyph">=</span><span>
+</span><span id="line-15"></span><span>    </span><span class="hs-keyword">let</span><span>
+</span><span id="line-16"></span><span>        </span><span id="local-6989586621679033155"><span class="annot"><span class="annottext">user1 :: User
+</span><a href="#local-6989586621679033155"><span class="hs-identifier hs-var hs-var">user1</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">User :: String -&gt; Int -&gt; User
+</span><a href="User.html#User"><span class="hs-identifier hs-type">User</span></a></span><span> </span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">userName :: String
+</span><a href="User.html#userName"><span class="hs-identifier hs-var">userName</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;@tom123&quot;</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">userId :: Int
+</span><a href="User.html#userId"><span class="hs-identifier hs-var">userId</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">1</span></span><span> </span><span class="hs-special">}</span><span>
+</span><span id="line-17"></span><span>        </span><span id="local-6989586621679033154"><span class="annot"><span class="annottext">user2 :: User
+</span><a href="#local-6989586621679033154"><span class="hs-identifier hs-var hs-var">user2</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">User :: String -&gt; Int -&gt; User
+</span><a href="User.html#User"><span class="hs-identifier hs-type">User</span></a></span><span> </span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">userName :: String
+</span><a href="User.html#userName"><span class="hs-identifier hs-var">userName</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;@maggie999&quot;</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">userId :: Int
+</span><a href="User.html#userId"><span class="hs-identifier hs-var">userId</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">2</span></span><span> </span><span class="hs-special">}</span><span>
+</span><span id="line-18"></span><span>        </span><span id="local-6989586621679033153"><span class="annot"><span class="annottext">user3 :: User
+</span><a href="#local-6989586621679033153"><span class="hs-identifier hs-var hs-var">user3</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">User :: String -&gt; Int -&gt; User
+</span><a href="User.html#User"><span class="hs-identifier hs-type">User</span></a></span><span> </span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">userName :: String
+</span><a href="User.html#userName"><span class="hs-identifier hs-var">userName</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;@eliza315&quot;</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">userId :: Int
+</span><a href="User.html#userId"><span class="hs-identifier hs-var">userId</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">3</span></span><span> </span><span class="hs-special">}</span><span>
+</span><span id="line-19"></span><span>        </span><span id="local-6989586621679033152"><span class="annot"><span class="annottext">user4 :: User
+</span><a href="#local-6989586621679033152"><span class="hs-identifier hs-var hs-var">user4</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">User :: String -&gt; Int -&gt; User
+</span><a href="User.html#User"><span class="hs-identifier hs-type">User</span></a></span><span> </span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">userName :: String
+</span><a href="User.html#userName"><span class="hs-identifier hs-var">userName</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;@jeremy01&quot;</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">userId :: Int
+</span><a href="User.html#userId"><span class="hs-identifier hs-var">userId</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">4</span></span><span> </span><span class="hs-special">}</span><span>
+</span><span id="line-20"></span><span>        </span><span id="local-6989586621679033151"><span class="annot"><span class="annottext">user5 :: User
+</span><a href="#local-6989586621679033151"><span class="hs-identifier hs-var hs-var">user5</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">User :: String -&gt; Int -&gt; User
+</span><a href="User.html#User"><span class="hs-identifier hs-type">User</span></a></span><span> </span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">userName :: String
+</span><a href="User.html#userName"><span class="hs-identifier hs-var">userName</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;@john1996&quot;</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">userId :: Int
+</span><a href="User.html#userId"><span class="hs-identifier hs-var">userId</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">5</span></span><span> </span><span class="hs-special">}</span><span>
+</span><span id="line-21"></span><span>        </span><span id="local-6989586621679033150"><span class="annot"><span class="annottext">user6 :: User
+</span><a href="#local-6989586621679033150"><span class="hs-identifier hs-var hs-var">user6</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">User :: String -&gt; Int -&gt; User
+</span><a href="User.html#User"><span class="hs-identifier hs-type">User</span></a></span><span> </span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">userName :: String
+</span><a href="User.html#userName"><span class="hs-identifier hs-var">userName</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;@qianyi0706&quot;</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">userId :: Int
+</span><a href="User.html#userId"><span class="hs-identifier hs-var">userId</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">6</span></span><span> </span><span class="hs-special">}</span><span>
+</span><span id="line-22"></span><span>        </span><span id="local-6989586621679033149"><span class="annot"><span class="annottext">user7 :: User
+</span><a href="#local-6989586621679033149"><span class="hs-identifier hs-var hs-var">user7</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">User :: String -&gt; Int -&gt; User
+</span><a href="User.html#User"><span class="hs-identifier hs-type">User</span></a></span><span> </span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">userName :: String
+</span><a href="User.html#userName"><span class="hs-identifier hs-var">userName</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;@marykim6&quot;</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">userId :: Int
+</span><a href="User.html#userId"><span class="hs-identifier hs-var">userId</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">7</span></span><span> </span><span class="hs-special">}</span><span>
+</span><span id="line-23"></span><span>        </span><span id="local-6989586621679033148"><span class="annot"><span class="annottext">user8 :: User
+</span><a href="#local-6989586621679033148"><span class="hs-identifier hs-var hs-var">user8</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">User :: String -&gt; Int -&gt; User
+</span><a href="User.html#User"><span class="hs-identifier hs-type">User</span></a></span><span> </span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">userName :: String
+</span><a href="User.html#userName"><span class="hs-identifier hs-var">userName</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;@miyeon09&quot;</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">userId :: Int
+</span><a href="User.html#userId"><span class="hs-identifier hs-var">userId</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">8</span></span><span> </span><span class="hs-special">}</span><span>
+</span><span id="line-24"></span><span>        </span><span id="local-6989586621679033147"><span class="annot"><span class="annottext">user9 :: User
+</span><a href="#local-6989586621679033147"><span class="hs-identifier hs-var hs-var">user9</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">User :: String -&gt; Int -&gt; User
+</span><a href="User.html#User"><span class="hs-identifier hs-type">User</span></a></span><span> </span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">userName :: String
+</span><a href="User.html#userName"><span class="hs-identifier hs-var">userName</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;@rhea888&quot;</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">userId :: Int
+</span><a href="User.html#userId"><span class="hs-identifier hs-var">userId</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">9</span></span><span> </span><span class="hs-special">}</span><span>
+</span><span id="line-25"></span><span>        </span><span id="local-6989586621679033146"><span class="annot"><span class="annottext">user10 :: User
+</span><a href="#local-6989586621679033146"><span class="hs-identifier hs-var hs-var">user10</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">User :: String -&gt; Int -&gt; User
+</span><a href="User.html#User"><span class="hs-identifier hs-type">User</span></a></span><span> </span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">userName :: String
+</span><a href="User.html#userName"><span class="hs-identifier hs-var">userName</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;@robertmay20&quot;</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">userId :: Int
+</span><a href="User.html#userId"><span class="hs-identifier hs-var">userId</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">10</span></span><span> </span><span class="hs-special">}</span><span>
+</span><span id="line-26"></span><span>    </span><span class="hs-keyword">in</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">User
+</span><a href="#local-6989586621679033155"><span class="hs-identifier hs-var">user1</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">User
+</span><a href="#local-6989586621679033154"><span class="hs-identifier hs-var">user2</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">User
+</span><a href="#local-6989586621679033153"><span class="hs-identifier hs-var">user3</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">User
+</span><a href="#local-6989586621679033152"><span class="hs-identifier hs-var">user4</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">User
+</span><a href="#local-6989586621679033151"><span class="hs-identifier hs-var">user5</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">User
+</span><a href="#local-6989586621679033150"><span class="hs-identifier hs-var">user6</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">User
+</span><a href="#local-6989586621679033149"><span class="hs-identifier hs-var">user7</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">User
+</span><a href="#local-6989586621679033148"><span class="hs-identifier hs-var">user8</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">User
+</span><a href="#local-6989586621679033147"><span class="hs-identifier hs-var">user9</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">User
+</span><a href="#local-6989586621679033146"><span class="hs-identifier hs-var">user10</span></a></span><span class="hs-special">]</span><span>
+</span><span id="line-27"></span></pre></body></html>

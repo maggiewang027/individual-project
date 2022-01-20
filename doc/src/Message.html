@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Message</span><span> </span><span class="hs-special">(</span><span>
+</span><span id="line-2"></span><span>    </span><span class="annot"><a href="Message.html#Message"><span class="hs-identifier">Message</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">,</span><span>
+</span><span id="line-3"></span><span>    </span><span class="annot"><a href="Message.html#sendMessage"><span class="hs-identifier">sendMessage</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-4"></span><span>    </span><span class="annot"><a href="Message.html#countMessage"><span class="hs-identifier">countMessage</span></a></span><span>
+</span><span id="line-5"></span><span>    </span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+</span><span id="line-6"></span><span>
+</span><span id="line-7"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="User.html"><span class="hs-identifier">User</span></a></span><span>
+</span><span id="line-8"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Control.Concurrent</span></span><span>
+</span><span id="line-9"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">System.Random</span></span><span>
+</span><span id="line-10"></span><span>
+</span><span id="line-11"></span><span class="hs-comment">-- | Define a type Message, each has a message of type String, a senderid of type Int and a receiverid of type Int</span><span>
+</span><span id="line-12"></span><span class="hs-keyword">data</span><span> </span><span id="Message"><span class="annot"><a href="Message.html#Message"><span class="hs-identifier hs-var">Message</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Message"><span class="annot"><a href="Message.html#Message"><span class="hs-identifier hs-var">Message</span></a></span></span><span> </span><span class="hs-special">{</span><span>
+</span><span id="line-13"></span><span>    </span><span id="message"><span class="annot"><span class="annottext">Message -&gt; String
+</span><a href="Message.html#message"><span class="hs-identifier hs-var hs-var">message</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span class="hs-special">,</span><span>
+</span><span id="line-14"></span><span>    </span><span id="senderId"><span class="annot"><span class="annottext">Message -&gt; Int
+</span><a href="Message.html#senderId"><span class="hs-identifier hs-var hs-var">senderId</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">,</span><span>
+</span><span id="line-15"></span><span>    </span><span id="receiverId"><span class="annot"><span class="annottext">Message -&gt; Int
+</span><a href="Message.html#receiverId"><span class="hs-identifier hs-var hs-var">receiverId</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-16"></span><span>    </span><span class="hs-special">}</span><span> </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679033208"><span id="local-6989586621679033210"><span id="local-6989586621679033212"><span class="annot"><span class="annottext">Int -&gt; Message -&gt; ShowS
+[Message] -&gt; ShowS
+Message -&gt; String
+(Int -&gt; Message -&gt; ShowS)
+-&gt; (Message -&gt; String) -&gt; ([Message] -&gt; ShowS) -&gt; Show Message
+forall a.
+(Int -&gt; a -&gt; ShowS) -&gt; (a -&gt; String) -&gt; ([a] -&gt; ShowS) -&gt; Show a
+showList :: [Message] -&gt; ShowS
+$cshowList :: [Message] -&gt; ShowS
+show :: Message -&gt; String
+$cshow :: Message -&gt; String
+showsPrec :: Int -&gt; Message -&gt; ShowS
+$cshowsPrec :: Int -&gt; Message -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-17"></span><span>
+</span><span id="line-18"></span><span class="hs-comment">-- | Select a random receiver we send the message to</span><span>
+</span><span id="line-19"></span><span class="annot"><a href="Message.html#receiver"><span class="hs-identifier hs-type">receiver</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IO</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-20"></span><span id="receiver"><span class="annot"><span class="annottext">receiver :: Int -&gt; IO Int
+</span><a href="Message.html#receiver"><span class="hs-identifier hs-var hs-var">receiver</span></a></span></span><span> </span><span id="local-6989586621679033205"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033205"><span class="hs-identifier hs-var">sendId</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-21"></span><span>    </span><span id="local-6989586621679033204"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033204"><span class="hs-identifier hs-var">randomId</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">(Int, Int) -&gt; IO Int
+forall a (m :: * -&gt; *). (Random a, MonadIO m) =&gt; (a, a) -&gt; m a
+</span><span class="hs-identifier hs-var">randomRIO</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">1</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">10</span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IO</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-22"></span><span>    </span><span class="hs-keyword">if</span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033204"><span class="hs-identifier hs-var">randomId</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Bool
+forall a. Eq a =&gt; a -&gt; a -&gt; Bool
+</span><span class="hs-operator hs-var">/=</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033205"><span class="hs-identifier hs-var">sendId</span></a></span><span> </span><span class="hs-keyword">then</span><span> </span><span class="annot"><span class="annottext">Int -&gt; IO Int
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033204"><span class="hs-identifier hs-var">randomId</span></a></span><span> </span><span class="hs-keyword">else</span><span> </span><span class="annot"><span class="annottext">Int -&gt; IO Int
+</span><a href="Message.html#receiver"><span class="hs-identifier hs-var">receiver</span></a></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033205"><span class="hs-identifier hs-var">sendId</span></a></span><span>
+</span><span id="line-23"></span><span>
+</span><span id="line-24"></span><span class="hs-comment">-- | Transfer a list of messages from the .txt document</span><span>
+</span><span id="line-25"></span><span class="annot"><a href="Message.html#messageList"><span class="hs-identifier hs-type">messageList</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">FilePath</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IO</span></span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span class="hs-special">]</span><span>
+</span><span id="line-26"></span><span id="messageList"><span class="annot"><span class="annottext">messageList :: String -&gt; IO [String]
+</span><a href="Message.html#messageList"><span class="hs-identifier hs-var hs-var">messageList</span></a></span></span><span> </span><span id="local-6989586621679033199"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679033199"><span class="hs-identifier hs-var">filename</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-27"></span><span>    </span><span id="local-6989586621679033198"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679033198"><span class="hs-identifier hs-var">text</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">String -&gt; IO String
+</span><span class="hs-identifier hs-var">readFile</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679033199"><span class="hs-identifier hs-var">filename</span></a></span><span>
+</span><span id="line-28"></span><span>    </span><span class="annot"><span class="annottext">[String] -&gt; IO [String]
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">([String] -&gt; IO [String]) -&gt; [String] -&gt; IO [String]
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">String -&gt; [String]
+</span><span class="hs-identifier hs-var">lines</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679033198"><span class="hs-identifier hs-var">text</span></a></span><span>
+</span><span id="line-29"></span><span>    </span><span>
+</span><span id="line-30"></span><span class="hs-comment">-- | Select a random message from the list of messages we generated</span><span>
+</span><span id="line-31"></span><span class="annot"><a href="Message.html#selectMessage"><span class="hs-identifier hs-type">selectMessage</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IO</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span>
+</span><span id="line-32"></span><span id="selectMessage"><span class="annot"><span class="annottext">selectMessage :: [String] -&gt; IO String
+</span><a href="Message.html#selectMessage"><span class="hs-identifier hs-var hs-var">selectMessage</span></a></span></span><span> </span><span id="local-6989586621679033194"><span class="annot"><span class="annottext">[String]
+</span><a href="#local-6989586621679033194"><span class="hs-identifier hs-var">randomMessage</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-33"></span><span>    </span><span id="local-6989586621679033193"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033193"><span class="hs-identifier hs-var">rMessage</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">(Int, Int) -&gt; IO Int
+forall a (m :: * -&gt; *). (Random a, MonadIO m) =&gt; (a, a) -&gt; m a
+</span><span class="hs-identifier hs-var">randomRIO</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">1</span></span><span class="hs-special">,</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">[String] -&gt; Int
+forall (t :: * -&gt; *) a. Foldable t =&gt; t a -&gt; Int
+</span><span class="hs-identifier hs-var">length</span></span><span> </span><span class="annot"><span class="annottext">[String]
+</span><a href="#local-6989586621679033194"><span class="hs-identifier hs-var">randomMessage</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
+forall a. Num a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-glyph hs-var">-</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">1</span></span><span class="hs-special">)</span><span class="hs-special">)</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IO</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-34"></span><span>    </span><span class="hs-keyword">let</span><span> </span><span id="local-6989586621679033191"><span class="annot"><span class="annottext">rText :: String
+</span><a href="#local-6989586621679033191"><span class="hs-identifier hs-var hs-var">rText</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[String]
+</span><a href="#local-6989586621679033194"><span class="hs-identifier hs-var">randomMessage</span></a></span><span> </span><span class="annot"><span class="annottext">[String] -&gt; Int -&gt; String
+forall a. [a] -&gt; Int -&gt; a
+</span><span class="hs-operator hs-var">!!</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033193"><span class="hs-identifier hs-var">rMessage</span></a></span><span>
+</span><span id="line-35"></span><span>    </span><span class="annot"><span class="annottext">String -&gt; IO String
+forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679033191"><span class="hs-identifier hs-var">rText</span></a></span><span>
+</span><span id="line-36"></span><span>
+</span><span id="line-37"></span><span class="hs-comment">-- | Start sending message</span><span>
+</span><span id="line-38"></span><span class="annot"><a href="Message.html#sendMessage"><span class="hs-identifier hs-type">sendMessage</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">MVar</span></span><span> </span><span class="hs-special">[</span><span class="annot"><a href="Message.html#Message"><span class="hs-identifier hs-type">Message</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IO</span></span><span> </span><span class="hs-special">(</span><span class="hs-special">)</span><span>
+</span><span id="line-39"></span><span id="sendMessage"><span class="annot"><span class="annottext">sendMessage :: Int -&gt; MVar [Message] -&gt; IO ()
+</span><a href="Message.html#sendMessage"><span class="hs-identifier hs-var hs-var">sendMessage</span></a></span></span><span> </span><span id="local-6989586621679033189"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033189"><span class="hs-identifier hs-var">sendId</span></a></span></span><span> </span><span id="local-6989586621679033188"><span class="annot"><span class="annottext">MVar [Message]
+</span><a href="#local-6989586621679033188"><span class="hs-identifier hs-var">box</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-40"></span><span>    </span><span id="local-6989586621679033187"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033187"><span class="hs-identifier hs-var">t</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">(Int, Int) -&gt; IO Int
+forall a (m :: * -&gt; *). (Random a, MonadIO m) =&gt; (a, a) -&gt; m a
+</span><span class="hs-identifier hs-var">randomRIO</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">10</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span class="hs-number">1000</span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IO</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-41"></span><span>    </span><span class="annot"><span class="annottext">Int -&gt; IO ()
+</span><span class="hs-identifier hs-var">threadDelay</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033187"><span class="hs-identifier hs-var">t</span></a></span><span>
+</span><span id="line-42"></span><span>    </span><span class="hs-comment">-- obtain a random receiver from function receiver</span><span>
+</span><span id="line-43"></span><span>    </span><span id="local-6989586621679033185"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033185"><span class="hs-identifier hs-var">receiveId</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Int -&gt; IO Int
+</span><a href="Message.html#receiver"><span class="hs-identifier hs-var">receiver</span></a></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033189"><span class="hs-identifier hs-var">sendId</span></a></span><span>
+</span><span id="line-44"></span><span>    </span><span class="hs-comment">-- first load the .txt document</span><span>
+</span><span id="line-45"></span><span>    </span><span class="hs-comment">-- obtain a random message from function selectMessage</span><span>
+</span><span id="line-46"></span><span>    </span><span id="local-6989586621679033184"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679033184"><span class="hs-identifier hs-var">randomText</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">[String] -&gt; IO String
+</span><a href="Message.html#selectMessage"><span class="hs-identifier hs-var">selectMessage</span></a></span><span> </span><span class="annot"><span class="annottext">([String] -&gt; IO String) -&gt; IO [String] -&gt; IO String
+forall (m :: * -&gt; *) a b. Monad m =&gt; (a -&gt; m b) -&gt; m a -&gt; m b
+</span><span class="hs-operator hs-var">=&lt;&lt;</span></span><span> </span><span class="annot"><span class="annottext">String -&gt; IO [String]
+</span><a href="Message.html#messageList"><span class="hs-identifier hs-var">messageList</span></a></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;randomMessage.txt&quot;</span></span><span>
+</span><span id="line-47"></span><span>    </span><span class="hs-keyword">let</span><span> </span><span id="local-6989586621679033182"><span class="annot"><span class="annottext">messages :: Message
+</span><a href="#local-6989586621679033182"><span class="hs-identifier hs-var hs-var">messages</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Message :: String -&gt; Int -&gt; Int -&gt; Message
+</span><a href="Message.html#Message"><span class="hs-identifier hs-type">Message</span></a></span><span> </span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">message :: String
+</span><a href="Message.html#message"><span class="hs-identifier hs-var">message</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679033184"><span class="hs-identifier hs-var">randomText</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">senderId :: Int
+</span><a href="Message.html#senderId"><span class="hs-identifier hs-var">senderId</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033189"><span class="hs-identifier hs-var">sendId</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">receiverId :: Int
+</span><a href="Message.html#receiverId"><span class="hs-identifier hs-var">receiverId</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033185"><span class="hs-identifier hs-var">receiveId</span></a></span><span> </span><span class="hs-special">}</span><span>
+</span><span id="line-48"></span><span>    </span><span id="local-6989586621679033181"><span class="annot"><span class="annottext">[Message]
+</span><a href="#local-6989586621679033181"><span class="hs-identifier hs-var">m</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">MVar [Message] -&gt; IO [Message]
+forall a. MVar a -&gt; IO a
+</span><span class="hs-identifier hs-var">takeMVar</span></span><span> </span><span class="annot"><span class="annottext">MVar [Message]
+</span><a href="#local-6989586621679033188"><span class="hs-identifier hs-var">box</span></a></span><span>
+</span><span id="line-49"></span><span>    </span><span class="annot"><span class="annottext">MVar [Message] -&gt; [Message] -&gt; IO ()
+forall a. MVar a -&gt; a -&gt; IO ()
+</span><span class="hs-identifier hs-var">putMVar</span></span><span> </span><span class="annot"><span class="annottext">MVar [Message]
+</span><a href="#local-6989586621679033188"><span class="hs-identifier hs-var">box</span></a></span><span> </span><span class="hs-special">(</span><span class="hs-special">[</span><span class="annot"><span class="annottext">Message
+</span><a href="#local-6989586621679033182"><span class="hs-identifier hs-var">messages</span></a></span><span class="hs-special">]</span><span> </span><span class="annot"><span class="annottext">[Message] -&gt; [Message] -&gt; [Message]
+forall a. [a] -&gt; [a] -&gt; [a]
+</span><span class="hs-operator hs-var">++</span></span><span> </span><span class="annot"><span class="annottext">[Message]
+</span><a href="#local-6989586621679033181"><span class="hs-identifier hs-var">m</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-50"></span><span>    </span><span class="annot"><span class="annottext">String -&gt; IO ()
+</span><span class="hs-identifier hs-var">putStrLn</span></span><span> </span><span class="annot"><span class="annottext">(String -&gt; IO ()) -&gt; String -&gt; IO ()
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;Send &quot;</span></span><span> </span><span class="annot"><span class="annottext">String -&gt; ShowS
+forall a. [a] -&gt; [a] -&gt; [a]
+</span><span class="hs-operator hs-var">++</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Message -&gt; String
+forall a. Show a =&gt; a -&gt; String
+</span><span class="hs-identifier hs-var">show</span></span><span> </span><span class="annot"><span class="annottext">Message
+</span><a href="#local-6989586621679033182"><span class="hs-identifier hs-var">messages</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-51"></span><span>    </span><span>
+</span><span id="line-52"></span><span class="hs-comment">-- | Count the total number of messages each user received</span><span>
+</span><span id="line-53"></span><span class="annot"><a href="Message.html#countMessage"><span class="hs-identifier hs-type">countMessage</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="Message.html#Message"><span class="hs-identifier hs-type">Message</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="User.html#User"><span class="hs-identifier hs-type">User</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IO</span></span><span> </span><span class="hs-special">(</span><span class="hs-special">)</span><span>
+</span><span id="line-54"></span><span id="countMessage"><span class="annot"><span class="annottext">countMessage :: [Message] -&gt; User -&gt; IO ()
+</span><a href="Message.html#countMessage"><span class="hs-identifier hs-var hs-var">countMessage</span></a></span></span><span> </span><span id="local-6989586621679033176"><span class="annot"><span class="annottext">[Message]
+</span><a href="#local-6989586621679033176"><span class="hs-identifier hs-var">ms</span></a></span></span><span> </span><span id="local-6989586621679033175"><span class="annot"><span class="annottext">User
+</span><a href="#local-6989586621679033175"><span class="hs-identifier hs-var">user</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-55"></span><span>    </span><span class="hs-keyword">let</span><span> </span><span id="local-6989586621679033174"><span class="annot"><span class="annottext">totalMessage :: Int
+</span><a href="#local-6989586621679033174"><span class="hs-identifier hs-var hs-var">totalMessage</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Message] -&gt; Int
+forall (t :: * -&gt; *) a. Foldable t =&gt; t a -&gt; Int
+</span><span class="hs-identifier hs-var">length</span></span><span> </span><span class="annot"><span class="annottext">([Message] -&gt; Int) -&gt; [Message] -&gt; Int
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">(Message -&gt; Bool) -&gt; [Message] -&gt; [Message]
+forall a. (a -&gt; Bool) -&gt; [a] -&gt; [a]
+</span><span class="hs-identifier hs-var">filter</span></span><span> </span><span class="hs-special">(</span><span class="hs-glyph">\</span><span id="local-6989586621679033173"><span class="annot"><span class="annottext">Message
+</span><a href="#local-6989586621679033173"><span class="hs-identifier hs-var">someone</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Message -&gt; Int
+</span><a href="Message.html#receiverId"><span class="hs-identifier hs-var hs-var">receiverId</span></a></span><span> </span><span class="annot"><span class="annottext">Message
+</span><a href="#local-6989586621679033173"><span class="hs-identifier hs-var">someone</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Bool
+forall a. Eq a =&gt; a -&gt; a -&gt; Bool
+</span><span class="hs-operator hs-var">==</span></span><span> </span><span class="annot"><span class="annottext">User -&gt; Int
+</span><a href="User.html#userId"><span class="hs-identifier hs-var hs-var">userId</span></a></span><span> </span><span class="annot"><span class="annottext">User
+</span><a href="#local-6989586621679033175"><span class="hs-identifier hs-var">user</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">[Message]
+</span><a href="#local-6989586621679033176"><span class="hs-identifier hs-var">ms</span></a></span><span>
+</span><span id="line-56"></span><span>    </span><span class="annot"><span class="annottext">String -&gt; IO ()
+</span><span class="hs-identifier hs-var">putStrLn</span></span><span> </span><span class="annot"><span class="annottext">(String -&gt; IO ()) -&gt; String -&gt; IO ()
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;User &quot;</span></span><span> </span><span class="annot"><span class="annottext">String -&gt; ShowS
+forall a. [a] -&gt; [a] -&gt; [a]
+</span><span class="hs-operator hs-var">++</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">User -&gt; String
+</span><a href="User.html#userName"><span class="hs-identifier hs-var hs-var">userName</span></a></span><span> </span><span class="annot"><span class="annottext">User
+</span><a href="#local-6989586621679033175"><span class="hs-identifier hs-var">user</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">String -&gt; ShowS
+forall a. [a] -&gt; [a] -&gt; [a]
+</span><span class="hs-operator hs-var">++</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot; with user id &quot;</span></span><span> </span><span class="annot"><span class="annottext">String -&gt; ShowS
+forall a. [a] -&gt; [a] -&gt; [a]
+</span><span class="hs-operator hs-var">++</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Int -&gt; String
+forall a. Show a =&gt; a -&gt; String
+</span><span class="hs-identifier hs-var">show</span></span><span> </span><span class="annot"><span class="annottext">(Int -&gt; String) -&gt; Int -&gt; String
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">User -&gt; Int
+</span><a href="User.html#userId"><span class="hs-identifier hs-var hs-var">userId</span></a></span><span> </span><span class="annot"><span class="annottext">User
+</span><a href="#local-6989586621679033175"><span class="hs-identifier hs-var">user</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">String -&gt; ShowS
+forall a. [a] -&gt; [a] -&gt; [a]
+</span><span class="hs-operator hs-var">++</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot; receives &quot;</span></span><span> </span><span class="annot"><span class="annottext">String -&gt; ShowS
+forall a. [a] -&gt; [a] -&gt; [a]
+</span><span class="hs-operator hs-var">++</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Int -&gt; String
+forall a. Show a =&gt; a -&gt; String
+</span><span class="hs-identifier hs-var">show</span></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679033174"><span class="hs-identifier hs-var">totalMessage</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">String -&gt; ShowS
+forall a. [a] -&gt; [a] -&gt; [a]
+</span><span class="hs-operator hs-var">++</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot; messages in total.&quot;</span></span><span>
+</span><span id="line-57"></span></pre></body></html>
