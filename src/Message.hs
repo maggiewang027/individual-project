@@ -17,6 +17,20 @@ data Message = Message {
     receiverId :: Int
     } deriving (Show)
 
+-- | Generate a list of 100 messages from the randomMessage.txt
+messageList :: FilePath -> IO [String]
+messageList filename = do
+    text <- readFile filename
+    return $ lines content
+    
+-- | 
+selectMessage :: [String] -> IO String
+selectMessage randomMessage = do
+    randomMessage <- messageList "randomMessage.txt"
+    rMessage <- randomRIO (1, (length randomMessage - 1))
+    let rText = randomMessage !! rMessage
+    return rText
+
 -- | Select a random receiver we send the message to
 receiver :: Int -> IO Int
 receiver sendId = do
@@ -29,10 +43,11 @@ sendMessage box sendId = do
     t <- randomRIO (10, 1000) :: IO Int
     threadDelay t
     receiveId <- receiver sendId
-    let messages = Message { message = "hi", senderId = sendId, receiverId = receiveId }
+    randomText <- selectMessage randomMessage
+    let messages = Message { message = randomText, senderId = sendId, receiverId = receiveId }
     m <- takeMVar box
     putMVar box ([messages] ++ m)
-
+    putStrLn $ "Send" ++ (show messages)
     
 -- | Count the total number of messages each user received
 countMessage :: [Message] -> User -> IO ()
