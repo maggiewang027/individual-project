@@ -1,5 +1,5 @@
-A lovely day, isn’t it?
-Do i have to?
+A lovely day, right?
+Do I have to?
 Can I help you?
 How are things going?
 Any thing else?
@@ -27,11 +27,11 @@ What do you need?
 What do you think?
 What do you want to do?
 What do you want?
-What’s the weather like?
-What’s your e-mail address?
+What is the weather like?
+What is your e-mail address?
 What is your job?
-What’s your name?
-What’s your phone number?
+What is your name?
+What is your phone number?
 What is going on?
 When is the train leaving?
 How can I go to the town centre?
@@ -43,12 +43,12 @@ Where do you live?
 Are you coming with me?
 How long will you stay?
 I agree.
-I’m at home.
-It’s on the tip of my tongue.
-It’s ok.
+I am at home.
+It is on the tip of my tongue.
+It is ok.
 It really takes time.
-It’s fort he best.
-No, I don’t want.
+It is fort he best.
+No, I do not want.
 See you.
 See you next time.
 So I do.
@@ -60,18 +60,18 @@ Be careful!
 Be quiet!
 Cheer up!
 Come on.
-Don’t be ridicolus.
-Don’t be so childish.
-Don’t move!
-Don’t worry.
+Do not be ridicolus.
+Do not be so childish.
+Do not move!
+Do not worry.
 Enjoy yourself.
 Follow me.
 Forgive me.
 Forget it.
 God bless you.
-It’s very thoughtful of you.
-It’s up to you.
-It’s none of you business.
+It is very thoughtful of you.
+It is up to you.
+It is none of you business.
 Shut up.
 Slow down.
 Stop making such a noice.
@@ -84,8 +84,8 @@ Have a good trip.
 Have a good weekend.
 I admire you.
 I apologize.
-I can’t wait.
-I don’t have time.
+I cannot wait.
+I do not have time.
 I got it.
 I hate you!
 I hope so.
@@ -94,7 +94,7 @@ I love you.
 I would love to.
 I am busy.
 I am tired.
-I don’t agree.
+I do not agree.
 You are wasting my time.
 I feel much better.
 They like each other.
