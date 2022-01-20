@@ -26,6 +26,7 @@ main = do
     putStrLn "-------------------------------------------------------"
     ms <- readMVar box
     mapM_ (countMessage ms) users
+    putStrLn $ "There are " ++ (show $ length ms) ++ " messages for all the 10 users in total."
     putStrLn "-------------------------------------------------------"
     putStrLn "Finished printing."
     putStrLn "Thank you for using the app!"
