@@ -1,6 +1,5 @@
 module Message (
     Message (..),
-    receiver,
     sendMessage,
     countMessage
     ) where
@@ -46,7 +45,7 @@ sendMessage box sendId = do
     let messages = Message { message = randomText, senderId = sendId, receiverId = receiveId }
     m <- takeMVar box
     putMVar box ([messages] ++ m)
-    putStrLn $ "Send" ++ (show messages)
+    putStrLn $ "Send " ++ (show messages)
     
 -- | Count the total number of messages each user received
 countMessage :: [Message] -> User -> IO ()
