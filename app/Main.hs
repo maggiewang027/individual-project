@@ -6,14 +6,18 @@ import Control.Monad
 import Control.Concurrent
 import System.Random
 
--- | Initial the constants we will use
+-- | Initial the number of thread to 10
 threadNumber = 10
-initialMessage = []
+
+-- | Initial the MVar of empty list [] which stores the messages
+initialMessage :: IO (MVar [Message])
+initialMessage = do
+    ims <- newMVar []
+    return ims
 
 main :: IO ()
 main = do
-    let users = userList
-    box <- newMVar initialMessage
+    box <- initialMessage
     putStrLn "-------------------------------------------------------"
     putStrLn "Welcome to the social network app!"
     putStrLn "Start sending 100 random messages..."
@@ -24,9 +28,10 @@ main = do
     putStrLn "Finished sending messages."
     putStrLn "Start printing total number of messages of each user..."
     putStrLn "-------------------------------------------------------"
+    let users = userList
     ms <- readMVar box
     mapM_ (countMessage ms) users
-    putStrLn $ "There are " ++ (show $ length ms) ++ " messages for all the 10 users in total."
+    putStrLn $ "There are " ++ (show $ length ms) ++ " messages for all the " ++ (show $ length users) ++ " users in total."
     putStrLn "-------------------------------------------------------"
     putStrLn "Finished printing."
     putStrLn "Thank you for using the app!"
