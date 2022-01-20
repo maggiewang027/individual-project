@@ -22,14 +22,19 @@ main = do
     putStrLn "Welcome to the social network app!"
     putStrLn "Start sending 100 random messages..."
     putStrLn "-------------------------------------------------------"
-    mapM_ (\ids -> forkIO (replicateM_ threadNumber (sendMessage box ids))) [1..10]
+    -- both mapM_ and replicateM_ discard the results
+    mapM_ (\ids -> forkIO $ replicateM_ threadNumber (sendMessage box ids)) [1..10]
+    -- delay before printing the users' details
     threadDelay 100000
     putStrLn "-------------------------------------------------------"
     putStrLn "Finished sending messages."
     putStrLn "Start printing total number of messages of each user..."
     putStrLn "-------------------------------------------------------"
+    -- obtain the list of users we generated in User.hs
     let users = userList
+    -- obtain the list of messages we generated in Message.hs
     ms <- readMVar box
+    -- print all the users' details
     mapM_ (countMessage ms) users
     putStrLn $ "There are " ++ (show $ length ms) ++ " messages for all the " ++ (show $ length users) ++ " users in total."
     putStrLn "-------------------------------------------------------"
