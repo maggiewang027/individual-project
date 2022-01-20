@@ -9,7 +9,7 @@ data User = User {
     userId :: Int
     } deriving (Show)
 
--- | Declare 10 users
+-- | Generate a list of 10 users
 userList :: [User]
 userList =
     let
