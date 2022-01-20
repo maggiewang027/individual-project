@@ -26,7 +26,6 @@ messageList filename = do
 -- | 
 selectMessage :: [String] -> IO String
 selectMessage randomMessage = do
-    randomMessage <- messageList "randomMessage.txt"
     rMessage <- randomRIO (1, (length randomMessage - 1))
     let rText = randomMessage !! rMessage
     return rText
@@ -43,7 +42,7 @@ sendMessage box sendId = do
     t <- randomRIO (10, 1000) :: IO Int
     threadDelay t
     receiveId <- receiver sendId
-    randomText <- selectMessage randomMessage
+    randomText <- selectMessage =<< messageList "randomMessage.txt"
     let messages = Message { message = randomText, senderId = sendId, receiverId = receiveId }
     m <- takeMVar box
     putMVar box ([messages] ++ m)
