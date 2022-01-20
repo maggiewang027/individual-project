@@ -6,6 +6,7 @@ import Control.Monad
 import Control.Concurrent
 import System.Random
 
+-- | Initial the constants we will use
 threadNumber = 10
 initialMessage = []
 
@@ -17,7 +18,7 @@ main = do
     putStrLn "Start sending 100 random messages..."
     putStrLn "-------------------------------------------------------"
     mapM_ (\ids -> forkIO (replicateM_ threadNumber (sendMessage box ids))) [1..10]
-    threadDelay (100000)
+    threadDelay 100000
     putStrLn "-------------------------------------------------------"
     putStrLn "Finished sending messages."
     putStrLn "-------------------------------------------------------"
