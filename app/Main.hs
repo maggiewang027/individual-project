@@ -23,7 +23,7 @@ main = do
     putStrLn "Start sending 100 random messages..."
     putStrLn "-------------------------------------------------------"
     -- both mapM_ and replicateM_ discard the results
-    mapM_ (\ids -> forkIO $ replicateM_ threadNumber (sendMessage box ids)) [1..10]
+    mapM_ (\ids -> forkIO $ replicateM_ threadNumber (sendMessage ids box)) [1..10]
     -- delay before printing the users' details
     threadDelay 100000
     putStrLn "-------------------------------------------------------"
