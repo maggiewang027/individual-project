@@ -25,7 +25,7 @@ messageList filename = do
 -- | Select a random message from the list of messages we generated
 selectMessage :: [String] -> IO String
 selectMessage randomMessage = do
-    rMessage <- randomRIO (1, (length randomMessage - 1))
+    rMessage <- randomRIO (1, (length randomMessage - 1)) :: IO Int
     let rText = randomMessage !! rMessage
     return rText
 
