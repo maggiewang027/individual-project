@@ -21,8 +21,8 @@ data Message = Message {
 receiver :: Int -> IO Int
 receiver sendId = do
     randomId <- randomRIO (1, 10) :: IO Int
-    if randomId == sendId then receiver sendId else return randomId
-    
+    if randomId /= sendId then return randomId else receiver sendId
+
 -- | Start send message
 sendMessage :: MVar [Message] -> Int -> IO ()
 sendMessage box sendId = do
