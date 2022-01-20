@@ -12,10 +12,19 @@ initialMessage = []
 main :: IO ()
 main = do
     box <- newMVar initialMessage
-    putStrLn "Start sending messages..."
+    putStrLn "----------------------------------------------------"
+    putStrLn "Start sending 100 random messages..."
+    putStrLn "----------------------------------------------------"
     mapM_ (\ids -> forkIO (replicateM_ threadNumber (sendMessage box ids))) [1..10]
-    threadDelay (110000)
+    putStrLn "----------------------------------------------------"
+    putStrLn "Finished sending messages."
+    putStrLn "----------------------------------------------------"
+    threadDelay (100000)
     ms <- readMVar box
+    putStrLn "----------------------------------------------------"
     putStrLn "Start printing total number of messages of each user..."
+    putStrLn "----------------------------------------------------"
     mapM_ (countMessage ms) userList
-    putStrLn "Finished."
+    putStrLn "----------------------------------------------------"
+    putStrLn "Finished printing."
+    putStrLn "----------------------------------------------------"
