@@ -21,7 +21,7 @@ data Message = Message {
 messageList :: FilePath -> IO [String]
 messageList filename = do
     text <- readFile filename
-    return $ lines content
+    return $ lines text
     
 -- | 
 selectMessage :: [String] -> IO String
