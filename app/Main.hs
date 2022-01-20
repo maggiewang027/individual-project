@@ -8,11 +8,11 @@ import System.Random
 
 -- | Initial the constants we will use
 threadNumber = 10
-initialMessage = 1
+initialMessage = []
 
 main :: IO ()
 main = do
-    users <- userList
+    let users = userList
     box <- newMVar initialMessage
     putStrLn "-------------------------------------------------------"
     putStrLn "Welcome to the social network app!"
@@ -22,7 +22,6 @@ main = do
     threadDelay 100000
     putStrLn "-------------------------------------------------------"
     putStrLn "Finished sending messages."
-    putStrLn "-------------------------------------------------------"
     putStrLn "Start printing total number of messages of each user..."
     putStrLn "-------------------------------------------------------"
     ms <- readMVar box
