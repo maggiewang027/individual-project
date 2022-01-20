@@ -16,13 +16,13 @@ data Message = Message {
     receiverId :: Int
     } deriving (Show)
 
--- | Generate a list of 100 messages from the randomMessage.txt
+-- | Generate a list of messages from the .txt document
 messageList :: FilePath -> IO [String]
 messageList filename = do
     text <- readFile filename
     return $ lines text
     
--- | 
+-- | Select a random message from the list of messages we generated
 selectMessage :: [String] -> IO String
 selectMessage randomMessage = do
     rMessage <- randomRIO (1, (length randomMessage - 1))
