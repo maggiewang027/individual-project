@@ -26,16 +26,16 @@ receiver sendId = do
 -- | Start send message
 sendMessage :: MVar [Message] -> Int -> IO ()
 sendMessage box sendId = do
-    t <- randomRIO (0, 1000) :: IO Int
+    t <- randomRIO (10, 1000) :: IO Int
     threadDelay t
     receiveId <- receiver sendId
-    let messages = Message { message = "", senderId = sendId, receiverId = receiveId }
+    let messages = Message { message = "hi", senderId = sendId, receiverId = receiveId }
     m <- takeMVar box
     putMVar box ([messages] ++ m)
-    putStrLn $ "Send " ++ (show messages)
+
     
 -- | Count the total number of messages each user received
 countMessage :: [Message] -> User -> IO ()
 countMessage ms user = do
-    let totalMessage = length $ filter (\someone -> receiverId someone == userId user )
-    putStrLn $ (userName user) ++ (show userId) ++ " received " ++ (show totalMessage) ++ " messages in total."
+    let totalMessage = length $ filter (\someone -> receiverId someone == userId user ) ms
+    putStrLn $ "User " ++ (userName user) ++ " with user id " ++ (show $ userId user) ++ " receives " ++ (show totalMessage) ++ " messages in total."
